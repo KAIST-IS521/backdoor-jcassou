@@ -8,6 +8,9 @@
 
 #define NUM_REGS   (256)
 #define NUM_FUNCS  (256)
+#define RepA (ctx->r[EXTRACT_B1(instr)].value)
+#define RepB (ctx->r[EXTRACT_B2(instr)].value)
+#define RepC (ctx->r[EXTRACT_B3(instr)].value) 
 
 // Global variable that indicates if the process is running.
 static bool is_running = true;
@@ -17,77 +20,56 @@ void halt() {
 }
 
 void load(struct VMContext* ctx, const uint32_t instr){
-	const uint8_t a = EXTRACT_B1(instr);
-	const uint8_t b = EXTRACT_B2(instr);
 	//ctx->r[a].value = ctx->r[b].value;
 }
 
 void store(){
-	const uint8_t a = EXTRACT_B1(instr);
-	const uint8_t b = EXTRACT_B2(instr);
 	//ctx->r[a].value = ctx->r[b].value;
 }
 
 void move(struct VMContext* ctx, const uint32_t instr){
-	const uint8_t a = EXTRACT_B1(instr);
-	const uint8_t b = EXTRACT_B2(instr);
 }
 
 void puti(struct VMContext* ctx, const uint32_t instr){
-	const uint8_t a = EXTRACT_B1(instr);
-	const uint8_t b = EXTRACT_B2(instr);
 }
 
 void add(struct VMContext* ctx, const uint32_t instr){
-	const uint8_t a = EXTRACT_B1(instr);
-	const uint8_t b = EXTRACT_B2(instr);
-	const uint8_t c = EXTRACT_B3(instr);
 }
 
 void sub(struct VMContext* ctx, const uint32_t instr){
-	const uint8_t a = EXTRACT_B1(instr);
-	const uint8_t b = EXTRACT_B2(instr);
-	const uint8_t c = EXTRACT_B3(instr);
 
 }
 
 void gt(struct VMContext* ctx, const uint32_t instr){
-	const uint8_t a = EXTRACT_B1(instr);
-	const uint8_t b = EXTRACT_B2(instr);
-	const uint8_t c = EXTRACT_B3(instr);
 
 }
 
 void ge(struct VMContext* ctx, const uint32_t instr){
-	const uint8_t a = EXTRACT_B1(instr);
-	const uint8_t b = EXTRACT_B2(instr);
-	const uint8_t c = EXTRACT_B3(instr);
-
 }
 
 void eq(struct VMContext* ctx, const uint32_t instr){
-	const uint8_t a = EXTRACT_B1(instr);
-	const uint8_t b = EXTRACT_B2(instr);
-	const uint8_t c = EXTRACT_B3(instr);
 
 }
 
 void ite(struct VMContext* ctx, const uint32_t instr){
-	const uint8_t a = EXTRACT_B1(instr);
-	const uint8_t b = EXTRACT_B2(instr);
-	const uint8_t c = EXTRACT_B3(instr);
 
 }
+
+/*void puts(struct VMContext* ctx, const uint32_t instr){
+  const uint8_t a = EXTRACT_B1(instr);
+  }*/
+
 
 void jump(struct VMContext* ctx, const uint32_t instr){
-	const uint8_t a = EXTRACT_B1(instr);
-
+	ctx->pc = ((instr & 0xff00) >> 8) - 1;
 }
 
-void gets(struct VMContext* ctx, const uint32_t instr){
-	const uint8_t a = EXTRACT_B1(instr);
-
-}
+/*void gets(struct VMContext* ctx, const uint32_t instr){
+	uint32_t str[50];
+	printf("Please, type chars : ");
+	scanf("%d", str);	
+        ctx->r[RepA].value = str;
+}*/
 
 void usageExit() {
 	// Show usage
@@ -114,8 +96,8 @@ void initFuncs(FunPtr *f, uint32_t cnt) {
 	f[0x90] = eq;
 	f[0xa0] = ite;
 	f[0xb0] = jump;
-	//f[0xc0] = puts; problems with puts in <stdio.h>
-	f[0xd0] = gets;
+	//f[0xc0] = puts; conflicts with puts in <stdio.h>
+	//f[0xd0] = gets;
 
 }
 
@@ -133,7 +115,7 @@ int main(int argc, char** argv) {
 	Reg r[NUM_REGS];
 	FunPtr f[NUM_FUNCS];
 	FILE* bytecode;
-	//int i = 0;
+	int i = 0;
 	uint32_t* pc;
 
 	// There should be at least one argument.
@@ -155,10 +137,10 @@ int main(int argc, char** argv) {
 
 
 	while (is_running) {
-		//TODO : Read 4-byte bytecode, and set the pc accordingly
-		//printf("Running instruction: %d -> [ '%c', '%d', '%d', '%d' ]\n", i, EXTRACT_B0(*pc), EXTRACT_B1(*pc), EXTRACT_B2(*pc), EXTRACT_B3(*pc));
+		// Read 4-byte bytecode, and set the pc accordingly
+		printf("Running instruction: %d -> [ '%c', '%d', '%d', '%d' ]\n", i, EXTRACT_B0(*pc), EXTRACT_B1(*pc), EXTRACT_B2(*pc), EXTRACT_B3(*pc));
 		stepVMContext(&vm, &pc);
-		//i++;
+		i++;
 	}
 
 	fclose(bytecode);
