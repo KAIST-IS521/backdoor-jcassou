@@ -55,14 +55,13 @@ void ite(struct VMContext* ctx, const uint32_t instr){
 
 }
 
+void jump(struct VMContext* ctx, const uint32_t instr){
+        ctx->pc = Extract_B1(instr);
+}
+
 /*void puts(struct VMContext* ctx, const uint32_t instr){
   const uint8_t a = EXTRACT_B1(instr);
   }*/
-
-
-void jump(struct VMContext* ctx, const uint32_t instr){
-	ctx->pc = ((instr & 0xff00) >> 8) - 1;
-}
 
 /*void gets(struct VMContext* ctx, const uint32_t instr){
 	uint32_t str[50];
@@ -145,6 +144,5 @@ int main(int argc, char** argv) {
 
 	fclose(bytecode);
 
-	// Zero indicates normal termination.
 	return 0;
 }
