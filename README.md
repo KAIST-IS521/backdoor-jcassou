@@ -6,3 +6,5 @@ Jean CASSOU-MOUNAT
 ## /interpreter/interpreter.c
 My mini language interpreter
 
+## /interpreter/minivm.c
+Functions for OPCODES

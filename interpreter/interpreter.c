@@ -8,71 +8,12 @@
 
 #define NUM_REGS   (256)
 #define NUM_FUNCS  (256)
-#define RepA (ctx->r[EXTRACT_B1(instr)].value)
-#define RepB (ctx->r[EXTRACT_B2(instr)].value)
-#define RepC (ctx->r[EXTRACT_B3(instr)].value) 
 
 // Global variable that indicates if the process is running.
-static bool is_running = true;
-
-void halt() {
-	is_running = false;
-}
-
-void load(struct VMContext* ctx, const uint32_t instr){
-	//ctx->r[a].value = ctx->r[b].value;
-}
-
-void store(){
-	//ctx->r[a].value = ctx->r[b].value;
-}
-
-void move(struct VMContext* ctx, const uint32_t instr){
-}
-
-void puti(struct VMContext* ctx, const uint32_t instr){
-}
-
-void add(struct VMContext* ctx, const uint32_t instr){
-}
-
-void sub(struct VMContext* ctx, const uint32_t instr){
-
-}
-
-void gt(struct VMContext* ctx, const uint32_t instr){
-
-}
-
-void ge(struct VMContext* ctx, const uint32_t instr){
-}
-
-void eq(struct VMContext* ctx, const uint32_t instr){
-
-}
-
-void ite(struct VMContext* ctx, const uint32_t instr){
-
-}
-
-void jump(struct VMContext* ctx, const uint32_t instr){
-        ctx->pc = Extract_B1(instr);
-}
-
-/*void puts(struct VMContext* ctx, const uint32_t instr){
-  const uint8_t a = EXTRACT_B1(instr);
-  }*/
-
-/*void gets(struct VMContext* ctx, const uint32_t instr){
-	uint32_t str[50];
-	printf("Please, type chars : ");
-	scanf("%d", str);	
-        ctx->r[RepA].value = str;
-}*/
+bool is_running = true;
 
 void usageExit() {
-	// Show usage
-	printf("USAGE: interpreter [FILE]");
+	printf("USAGE: ./interpreter <opcode> <operand1> <operand2> <operand3>");
 	exit(1);
 }
 
@@ -93,8 +34,10 @@ void initFuncs(FunPtr *f, uint32_t cnt) {
 	f[0x70] = gt;
 	f[0x80] = ge;
 	f[0x90] = eq;
-	f[0xa0] = ite;
-	f[0xb0] = jump;
+	
+	//TODO
+	//f[0xa0] = ite;
+	//f[0xb0] = jump;
 	//f[0xc0] = puts; conflicts with puts in <stdio.h>
 	//f[0xd0] = gets;
 

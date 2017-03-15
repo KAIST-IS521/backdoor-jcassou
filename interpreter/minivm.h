@@ -13,7 +13,6 @@
 //---------------------------------------------------------
 // MACRO DEFINITIONS:
 
-
 // Size of the global function pointer table
 #define MVM_NUM_FUNS 256
 
@@ -29,17 +28,18 @@ typedef void (*FunPtr)(struct VMContext* ctx, const uint32_t);
 
 //CHANGE THE INTERNALS OF THIS FOR YOUR OWN VM!
 typedef struct Reg {
-    uint32_t type;
-    uint32_t value;
+	uint32_t type;
+	uint32_t value;
 } Reg;
 
 typedef struct VMContext {
-    uint32_t numRegs;
-    uint32_t numFuns;
-    Reg* r;           // Ptr to register array.
-    FunPtr* funtable; // Ptr to a funptr table.
-    uint32_t pc;
-
+	uint32_t numRegs;
+	uint32_t numFuns;
+	Reg* r;           // Ptr to register array.
+	FunPtr* funtable; // Ptr to a funptr table.
+	uint32_t pc;
+        uint32_t opcode;
+	uint8_t heap[8192];
 } VMContext;
 
 
@@ -62,7 +62,6 @@ static FunPtr mvm_function_table[MVM_NUM_FUNS];
 //---------------------------------------------------------
 // FUNCTIONS:
 
-
 // Selects and executes an opcode function from the function pointer table.
 // Passes the entire bytecode instruction as the argument.
 // dispatch :: VMContext -> uint32_t -> Effect()
@@ -71,14 +70,49 @@ void dispatch(struct VMContext* ctx, const uint32_t instr);
 // Initializes a VMContext in-place.
 // initVMContext :: VMContext -> uint32_t -> uint32_t -> [Reg] -> [FunPtr] -> Effect()
 void initVMContext(struct VMContext* ctx,
-                      const uint32_t numRegs,
-                      const uint32_t numFuns,
-                                Reg* registers,
-                             FunPtr* funtable);
+		const uint32_t numRegs,
+		const uint32_t numFuns,
+		Reg* registers,
+		FunPtr* funtable);
 
 // Reads an instruction, executes it, then steps to the next instruction.
 // stepVMContext :: VMContext -> uint32_t** -> Effect()
 void stepVMContext(struct VMContext* ctx, uint32_t** pc);
+
+//---------------------------------------------------------
+// OPCODES:
+
+
+void halt();
+
+void load(struct VMContext* ctx, const uint32_t instr);
+
+void store();
+
+void move(struct VMContext* ctx, const uint32_t instr);
+
+void puti(struct VMContext* ctx, const uint32_t instr);
+
+void add(struct VMContext* ctx, const uint32_t instr);
+
+void sub(struct VMContext* ctx, const uint32_t instr);
+
+void gt(struct VMContext* ctx, const uint32_t instr);
+
+void ge(struct VMContext* ctx, const uint32_t instr);
+
+void eq(struct VMContext* ctx, const uint32_t instr);
+
+//TODO
+
+//void ite(struct VMContext* ctx, const uint32_t instr);
+
+//void jump(struct VMContext* ctx, const uint32_t instr);
+
+/*void puts(struct VMContext* ctx, const uint32_t instr);*/
+
+/*void gets(struct VMContext* ctx, const uint32_t instr);*/
+
 
 
 //---------------------------------------------------------
