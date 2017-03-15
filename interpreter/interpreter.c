@@ -13,7 +13,8 @@
 static bool is_running = true;
 
 void usageExit() {
-    // TODO: show usage
+    // Show usage
+    printf("USAGE: interpreter [FILE]");
     exit(1);
 }
 
@@ -22,10 +23,23 @@ void initFuncs(FunPtr *f, uint32_t cnt) {
     for (i = 0; i < cnt; i++) {
         f[i] = NULL;
     }
+    
+    // Initialize function pointers
+    f[0x00] = halt;
+    f[0x10] = load;
+    f[0x20] = store;
+    f[0x30] = move;
+    f[0x40] = puti;
+    f[0x50] = add;
+    f[0x60] = sub;
+    f[0x70] = gt;
+    f[0x80] = ge;
+    f[0x90] = eq;
+    f[0xa0] = ite;
+    f[0xb0] = jump;
+    f[0xc0] = puts;
+    f[0xd0] = gets;
 
-    // TODO: initialize function pointers
-    // f[0x00] = halt;
-    // f[0x10] = load;
 }
 
 void initRegs(Reg *r, uint32_t cnt)
@@ -42,6 +56,7 @@ int main(int argc, char** argv) {
     Reg r[NUM_REGS];
     FunPtr f[NUM_FUNCS];
     FILE* bytecode;
+    int i = 0;
     uint32_t* pc;
 
     // There should be at least one argument.
@@ -61,9 +76,12 @@ int main(int argc, char** argv) {
         return 1;
     }
 
+	
     while (is_running) {
-        // TODO: Read 4-byte bytecode, and set the pc accordingly
+        //TODO : Read 4-byte bytecode, and set the pc accordingly
+        //printf("Running instruction: %d -> [ '%c', '%d', '%d', '%d' ]\n", i, EXTRACT_B0(*pc), EXTRACT_B1(*pc), EXTRACT_B2(*pc), EXTRACT_B3(*pc));
         stepVMContext(&vm, &pc);
+	//i++;
     }
 
     fclose(bytecode);
