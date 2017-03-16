@@ -34,12 +34,10 @@ void initFuncs(FunPtr *f, uint32_t cnt) {
 	f[0x70] = gt;
 	f[0x80] = ge;
 	f[0x90] = eq;
-	
-	//TODO
-	//f[0xa0] = ite;
-	//f[0xb0] = jump;
-	//f[0xc0] = puts; conflicts with puts in <stdio.h>
-	//f[0xd0] = gets;
+	f[0xa0] = ite;
+	f[0xb0] = jump;
+	f[0xc0] = op_puts; 
+	f[0xd0] = op_gets;
 
 }
 

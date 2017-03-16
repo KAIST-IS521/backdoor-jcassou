@@ -19,6 +19,23 @@ extern bool is_running;
 //---------------------------------------------------------
 // FUNCTION IMPLEMENTATIONS:
 
+void check_addr(uint32_t addr) {
+    if (addr >= 8192) {
+        perror("addr is out of range");
+        exit(1);
+    }
+}
+
+uint8_t read_mem(struct VMContext* ctx, uint32_t addr) {
+    check_addr(addr);
+    return *(ctx->heap + addr);
+}
+
+void write_mem(struct VMContext* ctx, uint32_t addr, uint8_t cst) {
+    check_addr(addr);
+    *(ctx->heap + addr) = cst;
+}
+
 void halt() {
 	is_running = false;
 }
@@ -60,28 +77,42 @@ void eq(struct VMContext* ctx, const uint32_t instr){
 	Op1 = Op2 == Op3 ? 1 : 0;
 }
 
-// TODO
-
-/*void ite(struct VMContext* ctx, const uint32_t instr){
+void ite(struct VMContext* ctx, const uint32_t instr){
+	uint8_t imm1 = EXTRACT_B2(instr);
+	uint8_t imm2 = EXTRACT_B3(instr);
+	ctx->pc = (Op1 > 0) ? imm1 : imm2;
 }
 
 void jump(struct VMContext* ctx, const uint32_t instr){
-}*/
-
-//TODO : HOW TO TAKE CARE OF THE PROBLEM
-
-/*void puts(struct VMContext* ctx, const uint32_t instr){
-  const uint8_t a = EXTRACT_B1(instr);
+	uint8_t imm = EXTRACT_B1(instr);
+	ctx->pc = imm;
 }
 
-void gets(struct VMContext* ctx, const uint32_t instr){
-  uint32_t str[50];
-  printf("Please, type chars : ");
-  scanf("%d", str);       
-  ctx->r[RepA].value = str;
-}*/
+void op_puts(struct VMContext* ctx, const uint32_t instr){
+	uint32_t addr = Op1;
+	uint8_t cst;
+	while(true){
+		cst = read_mem(ctx, addr);
+		if(cst){
+			putchar(cst);
+			addr++;
+		}
+		else
+			break;
+	}		
+}
 
-
+void op_gets(struct VMContext* ctx, const uint32_t instr){
+	uint32_t addr = Op1;
+	uint8_t cst;
+	while(true) {
+		cst = (uint8_t) getchar();
+		if (cst == '\n') break;
+		write_mem(ctx, addr, cst);
+		addr++;
+	}
+	write_mem(ctx, addr, '\0');
+}
 
 // Defers decoding of register args to the called function.
 // dispatch :: VMContext -> uint32_t -> Effect()
@@ -100,7 +131,7 @@ void initVMContext(struct VMContext* ctx, const uint32_t numRegs, const uint32_t
 	ctx->funtable   = funtable;
 	ctx->pc         = 0;
 	ctx->opcode     = 0;
-        memset(ctx->heap, 0, 8192);	
+	memset(ctx->heap, 0, 8192);	
 }
 
 

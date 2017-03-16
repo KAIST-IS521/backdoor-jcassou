@@ -103,15 +103,13 @@ void ge(struct VMContext* ctx, const uint32_t instr);
 
 void eq(struct VMContext* ctx, const uint32_t instr);
 
-//TODO
+void ite(struct VMContext* ctx, const uint32_t instr);
 
-//void ite(struct VMContext* ctx, const uint32_t instr);
+void jump(struct VMContext* ctx, const uint32_t instr);
 
-//void jump(struct VMContext* ctx, const uint32_t instr);
+void op_puts(struct VMContext* ctx, const uint32_t instr);
 
-/*void puts(struct VMContext* ctx, const uint32_t instr);*/
-
-/*void gets(struct VMContext* ctx, const uint32_t instr);*/
+void op_gets(struct VMContext* ctx, const uint32_t instr);
 
 
 

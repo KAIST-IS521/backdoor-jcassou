@@ -8,3 +8,20 @@ My mini language interpreter
 
 ## /interpreter/minivm.c
 Functions for OPCODES
+Add error messages (TODO)
+
+## /login/login.mini
+Login program written in Mini Language (TODO)
+
+## /test/test.mini
+Test program written in Mini Language (TODO)
+
+## /test/test.md
+Description of the test program (TODO)
+
+## /backdoor/
+Source code for Mini Language Interpreter with a backdoor (TODO)
+
+## /compiler/
+No changes have been made
+
