@@ -8,10 +8,10 @@ My mini language interpreter
 
 ## /interpreter/minivm.c
 Functions for OPCODES
-Add error messages (TODO)
 
 ## /login/login.mini
-Login program written in Mini Language (TODO)
+- Login program written in Mini Language 
+- Helped with backdoor-mikkang
 
 ## /test/test.mini
 Test program written in Mini Language (TODO)
