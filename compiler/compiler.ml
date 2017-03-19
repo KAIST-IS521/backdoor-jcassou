@@ -34,8 +34,8 @@ let opcode_to_int = function
   | "eq" -> 0x90
   | "ite" -> 0xa0
   | "jump" -> 0xb0
-  | "puts" -> 0xc0
-  | "gets" -> 0xd0
+  | "op_puts" -> 0xc0
+  | "op_gets" -> 0xd0
   | opcode -> failwith ("[Unreachable] type_check() should have handled this")
 
 type oprnd_typ = Reg | Imm
@@ -53,8 +53,8 @@ let get_operand_type line = function
   | "eq" -> [Reg; Reg; Reg]
   | "ite" -> [Reg; Imm; Imm]
   | "jump" -> [Imm]
-  | "puts" -> [Reg]
-  | "gets" -> [Reg]
+  | "op_puts" -> [Reg]
+  | "op_gets" -> [Reg]
   | opcode -> error line ("Invalid opcode: " ^ opcode)
 
 let out_opcode oc opcode =
