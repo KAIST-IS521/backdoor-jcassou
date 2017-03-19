@@ -10,8 +10,8 @@ My mini language interpreter
 Functions for OPCODES
 
 ## /login/login.mini
-Login program written in Mini Language 
-Helped with backdoor-mikkang
+- Login program written in Mini Language 
+- Helped with backdoor-mikkang
 
 ## /test/test.mini
 Test program written in Mini Language (TODO)
