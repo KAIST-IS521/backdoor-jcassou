@@ -14,10 +14,10 @@ Functions for OPCODES
 - Helped with backdoor-mikkang
 
 ## /test/test.mini
-Test program written in Mini Language (TODO)
+Test program written in Mini Language
 
 ## /test/test.md
-Description of the test program (TODO)
+Description of the test program
 
 ## /backdoor/
 Source code for Mini Language Interpreter with a backdoor (TODO)
