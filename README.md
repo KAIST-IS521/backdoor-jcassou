@@ -5,6 +5,7 @@ Jean CASSOU-MOUNAT
 
 ## /interpreter/interpreter.c
 My mini language interpreter
+- Still have an error of segmentation when executing
 
 ## /interpreter/minivm.c
 Functions for OPCODES
@@ -20,7 +21,8 @@ Test program written in Mini Language
 Description of the test program
 
 ## /backdoor/
-Source code for Mini Language Interpreter with a backdoor (TODO)
+Source code for Mini Language Interpreter with a backdoor 
+- backdoor function forked from backdoor-KAISTGUN
 
 ## /compiler/
 No changes have been made

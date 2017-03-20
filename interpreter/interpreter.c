@@ -13,7 +13,7 @@
 bool is_running = true;
 
 void usageExit() {
-	printf("USAGE: ./interpreter <opcode> <operand1> <operand2> <operand3>");
+	printf("USAGE: ./interpreter [file.mini]");
 	exit(1);
 }
 
@@ -63,10 +63,13 @@ int main(int argc, char** argv) {
 
 	// Initialize registers.
 	initRegs(r, NUM_REGS);
+
 	// Initialize interpretation functions.
 	initFuncs(f, NUM_FUNCS);
+
 	// Initialize VM context.
 	initVMContext(&vm, NUM_REGS, NUM_FUNCS, r, f);
+
 
 	// Load bytecode file
 	bytecode = fopen(argv[1], "rb");
