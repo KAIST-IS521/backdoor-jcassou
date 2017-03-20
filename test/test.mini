@@ -38,5 +38,5 @@ store r9,r84
 store r10,r85
 store r11,r86
 store r12,r87
-puts r0
+op_puts r0
 halt
