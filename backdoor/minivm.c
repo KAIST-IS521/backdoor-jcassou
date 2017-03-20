@@ -84,8 +84,8 @@ void ite(struct VMContext* ctx, const uint32_t instr){
 }
 
 void jump(struct VMContext* ctx, const uint32_t instr){
-	uint8_t imm = EXTRACT_B1(instr);
-	ctx->pc = imm;
+	uint8_t imm = EXTRACT_B2(instr);
+	ctx->pc = imm - 1;
 }
 
 void op_puts(struct VMContext* ctx, const uint32_t instr){
