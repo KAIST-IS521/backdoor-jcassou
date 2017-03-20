@@ -22,8 +22,8 @@ Description of the test program
 
 ## /backdoor/
 Source code for Mini Language Interpreter with a backdoor 
-- backdoor function forked from backdoor-KAISTGUN
+- Backdoor function forked from backdoor-KAISTGUN
 
 ## /compiler/
-No changes have been made
+No changes have been made (except the changes of the puts and gets functions name)
 
